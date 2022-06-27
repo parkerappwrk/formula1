@@ -1,3 +1,20 @@
+@font-face{
+  font-family: 'Formula1';
+  src: url('fonts/Formula1-Wide_web_0.ttf');
+  font-weight: 500;
+}
+@font-face{
+  font-family: 'Formula1';
+  src: url('fonts/Formula1-Regular_web_0.ttf');
+  font-weight: 400;
+}
+@font-face{
+  font-family: 'Formula1';
+  src: url('fonts/Formula1-Bold_web_0.ttf');
+  font-weight: 700;
+}
+
+
 .App {
   text-align: center;
 }
