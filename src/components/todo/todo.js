@@ -4,9 +4,10 @@ import { Button, Card, Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-function Todo({ todo, index, markTodo, removeTodo,editTodo }) {
+
+function TodoRace({ todo, index, markTodo, removeTodo,editTodo }) {
     return (
-        <div className="todo" id="todo">
+        <div className="todo" id="todo" index={index}>
             <span style={{ textDecoration: todo.isDone ? "line-through" : "" }}>{todo.text}</span>
             <div>
                 <Button variant="outline-success" onClick={() => markTodo(index)}>✓</Button>{' '}
@@ -17,25 +18,34 @@ function Todo({ todo, index, markTodo, removeTodo,editTodo }) {
     );
 }
 
-function FormAddTodo({ addTodo }) {
+function FormAddTodo({ addTodo}) {
     const [value, setValue] = React.useState("");
 
+    /*if(gettodos){
+        var getTodoName = gettodos.name;
+        var getTodoNum = gettodos.number;
+        setValue(getTodoName);
+    }*/
     const handleSubmit = e => {
         e.preventDefault();
         if (!value) return;
-        addTodo(value);
-        setValue("");
+        /*if(gettodos){
+            updateTodo(value,getTodoNum);
+        }else{*/
+            addTodo(value);
+            setValue("");
+        /*}*/
     };
 
     return (
-        <Form onSubmit={handleSubmit}>
-            <Form.Group>
-                <Form.Label><b>Add Todo</b></Form.Label>
-                <Form.Control type="text" className="input" value={value} onChange={e => setValue(e.target.value)} placeholder="Add new todo" />
-            </Form.Group>
-            <Button variant="primary mb-3" type="submit">
-                Submit
-            </Button>
+        <Form onSubmit={handleSubmit} className="d-inline-flex col-md-12 flex-wrap">
+            <label className="col-md-12 mb-3"><b>Add Todo</b></label>
+            <div className="d-inline-flex col-md-12">
+                <Form.Group className="col-md-10">
+                    <Form.Control type="text" className="input col-md-12" value={value} onChange={e => setValue(e.target.value)} placeholder="Add new race day" />
+                </Form.Group>
+                <Button variant="primary mb-3 col-md-1 ms-2" type="submit">Submit</Button>
+            </div>
         </Form>
     );
 }
@@ -43,7 +53,7 @@ function FormAddTodo({ addTodo }) {
 function App() {
     const [todos, setTodos] = React.useState([
         {
-            text: "This is a sampe todo",
+            text: "sample Race Day",
             isDone: false
         }
     ]);
@@ -52,6 +62,12 @@ function App() {
         const newTodos = [...todos, { text }];
         setTodos(newTodos);
     };
+
+    /*let updateTodo = (text,index) => {
+        const newTodos = [...todos];
+        newTodos[index] = text;
+        setTodos(newTodos);
+    };*/
 
     const markTodo = index => {
         const newTodos = [...todos];
@@ -71,20 +87,21 @@ function App() {
 
     const editTodo = index => {
         const newTodos = [...todos];
-        newTodos.splice(index, 1);
-        setTodos(newTodos);
+        let gettodos = newTodos[index];
+        const getTodo = {'name':gettodos,'number':index};
+        return getTodo;
     };
 
     return (
         <div className="app">
             <div className="container">
                 <h1 className="text-center mb-4">Todo List</h1>
-                <FormAddTodo addTodo={addTodo} />
+                <FormAddTodo addTodo={addTodo} gettodos={editTodo}/>
                 <div>
                     {todos.map((todo, index) => (
                         <Card>
                             <Card.Body>
-                                <Todo
+                                <TodoRace
                                     key={index}
                                     index={index}
                                     todo={todo}
