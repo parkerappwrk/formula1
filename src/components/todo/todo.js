@@ -11,6 +11,7 @@ import EditTodo from "./EditTodo";
 function App() {
     const [isEditing, setIsEditing] = useState(false);
     const [id, setId] = useState("");
+    const [idObj, setIdObj] = useState("");
     const [todos, setTodos] = useState([
         {
             text: "Sample Race Day",
@@ -18,11 +19,13 @@ function App() {
             id: 0
         },
         {
-            text: "Sample new Day",
+            text: "Sample Race Day New",
             isDone: false,
-            id: 1
+            id: 0
         }
     ]);
+
+
 
     const addTodo = text => {
         const newTodos = [...todos, { text }];
@@ -54,6 +57,9 @@ function App() {
 
     let editTodo = index => {
         setIsEditing(true);
+        const newTodos = [...todos];
+        let bewObj = newTodos[index];
+        setIdObj(bewObj);
         setId(index);
     };
 
@@ -76,7 +82,7 @@ function App() {
                 {isEditing && (
                     <EditTodo
                         id={id}
-                        editTodo={editTodo}
+                        idObj={idObj}
                         updateTodo={updateTodo}
                         canceltodo={canceltodo}
                     />

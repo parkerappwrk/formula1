@@ -4,23 +4,12 @@ import { Button, Form } from 'react-bootstrap';
 
 function EditTodo(props) {
     const [value, setValue] = useState("");
-    const [todos, setTodos] = useState([
-        {
-            text: "Sample Race Day",
-            isDone: false,
-            id: 0
-        },
-        {
-            text: "Sample new Day",
-            isDone: false,
-            id: 1
-        }
-    ]);
+    // let getAllRacedy = localStorage.getItem('AllRaceDay');
+    console.log(props.idObj); 
 
     useEffect(() => {
         let index = props.id;
-        const newTodos = [...todos];
-        const gettodos = newTodos[index].text;
+        const gettodos = props.idObj.text;
         setValue(gettodos);        
     },[props.id]);
 
