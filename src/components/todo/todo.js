@@ -1,60 +1,26 @@
 import React from "react";
-import styles from "./todo.css";
-import { Button, Card, Form } from 'react-bootstrap';
+import { useState } from "react";
+import "./todo.css";
+import { Card } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import FormAddTodo from './FormAddTodo';
+import TodoRace from './allTodoList';
+import EditTodo from "./EditTodo";
 
-
-
-function TodoRace({ todo, index, markTodo, removeTodo,editTodo }) {
-    return (
-        <div className="todo" id="todo" index={index}>
-            <span style={{ textDecoration: todo.isDone ? "line-through" : "" }}>{todo.text}</span>
-            <div>
-                <Button variant="outline-success" onClick={() => markTodo(index)}>✓</Button>{' '}
-                <Button variant="outline-danger" onClick={() => removeTodo(index)}>✕</Button>{' '}
-                <Button variant="outline-warning" onClick={() => editTodo(index)}>✎</Button>
-            </div>
-        </div>
-    );
-}
-
-function FormAddTodo({ addTodo}) {
-    const [value, setValue] = React.useState("");
-
-    /*if(gettodos){
-        var getTodoName = gettodos.name;
-        var getTodoNum = gettodos.number;
-        setValue(getTodoName);
-    }*/
-    const handleSubmit = e => {
-        e.preventDefault();
-        if (!value) return;
-        /*if(gettodos){
-            updateTodo(value,getTodoNum);
-        }else{*/
-            addTodo(value);
-            setValue("");
-        /*}*/
-    };
-
-    return (
-        <Form onSubmit={handleSubmit} className="d-inline-flex col-md-12 flex-wrap">
-            <label className="col-md-12 mb-3"><b>Add Todo</b></label>
-            <div className="d-inline-flex col-md-12">
-                <Form.Group className="col-md-10">
-                    <Form.Control type="text" className="input col-md-12" value={value} onChange={e => setValue(e.target.value)} placeholder="Add new race day" />
-                </Form.Group>
-                <Button variant="primary mb-3 col-md-1 ms-2" type="submit">Submit</Button>
-            </div>
-        </Form>
-    );
-}
 
 function App() {
-    const [todos, setTodos] = React.useState([
+    const [isEditing, setIsEditing] = useState(false);
+    const [id, setId] = useState("");
+    const [todos, setTodos] = useState([
         {
-            text: "sample Race Day",
-            isDone: false
+            text: "Sample Race Day",
+            isDone: false,
+            id: 0
+        },
+        {
+            text: "Sample new Day",
+            isDone: false,
+            id: 1
         }
     ]);
 
@@ -63,11 +29,12 @@ function App() {
         setTodos(newTodos);
     };
 
-    /*let updateTodo = (text,index) => {
+    let updateTodo = (text,index) => {
         const newTodos = [...todos];
-        newTodos[index] = text;
+        newTodos[index].text = text;
         setTodos(newTodos);
-    };*/
+        setIsEditing(false);
+    };
 
     const markTodo = index => {
         const newTodos = [...todos];
@@ -85,20 +52,37 @@ function App() {
         setTodos(newTodos);
     };
 
-    const editTodo = index => {
-        const newTodos = [...todos];
-        let gettodos = newTodos[index];
-        const getTodo = {'name':gettodos,'number':index};
-        return getTodo;
+    let editTodo = index => {
+        setIsEditing(true);
+        setId(index);
     };
+
+    const canceltodo = () => {
+        setIsEditing(false);
+        var namerace = document.querySelectorAll('.allRaceContainer span');
+        for(var i= 0; i< namerace.length; i++){
+            namerace[i].style.fontWeight = 400;
+        }
+    }
 
     return (
         <div className="app">
             <div className="container">
-                <h1 className="text-center mb-4">Todo List</h1>
-                <FormAddTodo addTodo={addTodo} gettodos={editTodo}/>
-                <div>
-                    {todos.map((todo, index) => (
+                <h1 className="text-center mb-4">Race Days List</h1>
+                {!isEditing && (
+                <FormAddTodo addTodo={addTodo} />
+                )}
+
+                {isEditing && (
+                    <EditTodo
+                        id={id}
+                        editTodo={editTodo}
+                        updateTodo={updateTodo}
+                        canceltodo={canceltodo}
+                    />
+                )}
+                <div className="allRaceContainer">
+                    { todos.map((todo, index) => (
                         <Card>
                             <Card.Body>
                                 <TodoRace
@@ -111,7 +95,8 @@ function App() {
                                 />
                             </Card.Body>
                         </Card>
-                    ))}
+                    ))
+                    }
                 </div>
             </div>
         </div>
