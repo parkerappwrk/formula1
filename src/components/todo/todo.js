@@ -21,7 +21,7 @@ function App() {
         {
             text: "Sample Race Day New",
             isDone: false,
-            id: 0
+            id: 1
         }
     ]);
 
@@ -78,7 +78,7 @@ function App() {
         newTodos.splice(index, 1);
         setTodos(newTodos);
     };
-    
+
 
     /**
     * 
@@ -127,7 +127,7 @@ function App() {
                 )}
                 <div className="allRaceContainer">
                     { todos.map((todo, index) => (
-                        <Card>
+                        <Card key={index}>
                             <Card.Body>
                                 <TodoRace
                                     key={index}

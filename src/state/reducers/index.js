@@ -1,8 +1,7 @@
-import { combineReducer } from 'redux';
+import { combineReducers } from 'redux';
 import amountReducers from "./amountReducers";
 
-
-const reducers = combineReducer({
+const reducers = combineReducers({
     amount: amountReducers
 });
 

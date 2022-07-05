@@ -1,5 +1,5 @@
 export const depositMoney = (amount)  => {
-    retrun (dispatch)=>{
+    return (dispatch) => {
         dispatch({
             type: 'deposit',
             payload: amount
@@ -8,7 +8,7 @@ export const depositMoney = (amount)  => {
 }
 
 export const withdrawMoney = (amount)=> {
-    retrun (dispatch)=>{
+    return (dispatch) => {
         dispatch({
             type: 'withdraw',
             payload: amount
