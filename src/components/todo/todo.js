@@ -11,7 +11,7 @@ import EditTodo from "./EditTodo";
 function App() {
     const [isEditing, setIsEditing] = useState(false);
     const [id, setId] = useState("");
-    const [idObj, setIdObj] = useState("");
+    const [idObj, setIdObj] = useState("{}");
     const [todos, setTodos] = useState([
         {
             text: "Sample Race Day",
@@ -25,19 +25,36 @@ function App() {
         }
     ]);
 
-
+    /**
+    * 
+    * @param {*} text 
+    * Comment: This function add the new todo List into the Array.
+    */
 
     const addTodo = text => {
         const newTodos = [...todos, { text }];
         setTodos(newTodos);
     };
 
+    /**
+     * 
+     * @param {*} text 
+     * @param Integer index
+     * @return
+     * Comment: This update the Text in array
+     */
     let updateTodo = (text,index) => {
         const newTodos = [...todos];
         newTodos[index].text = text;
         setTodos(newTodos);
         setIsEditing(false);
     };
+
+    /**
+    * 
+    * @param {*} text 
+    * Comment: This function mark the Todo list is completed.
+    */
 
     const markTodo = index => {
         const newTodos = [...todos];
@@ -49,11 +66,25 @@ function App() {
         setTodos(newTodos);
     };
 
+
+    /**
+    * 
+    * @param {*} text 
+    * Comment: This function used to remove a todo form the List
+    */
+
     const removeTodo = index => {
         const newTodos = [...todos];
         newTodos.splice(index, 1);
         setTodos(newTodos);
     };
+    
+
+    /**
+    * 
+    * @param {*} text 
+    * Comment: This lets you to edit a current added Todo.
+    */
 
     let editTodo = index => {
         setIsEditing(true);
@@ -62,6 +93,13 @@ function App() {
         setIdObj(bewObj);
         setId(index);
     };
+
+
+    /**
+    * 
+    * @param {*} text 
+    * Comment: This function add the new todo List into the Array.
+    */
 
     const canceltodo = () => {
         setIsEditing(false);
