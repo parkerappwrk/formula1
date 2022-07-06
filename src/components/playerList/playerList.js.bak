@@ -5,6 +5,8 @@ import AddPlayerspoint from "../addPlayerPoint/addPlayerspoint";
 
 function PlayerUpdateScore(){
     const plyrpoints = useSelector((state) => state.playerdata);
+    console.log('PlayerUpdateScore');
+    console.log(plyrpoints);
     const [playerList, setplayer] = useState([
         {
             name: "Charles Leclerc",
