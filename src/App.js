@@ -14,13 +14,12 @@ function App() {
   return (
     
     <Router>
-    <Provider store={store}>
+      <Provider store={store}>
           <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/player" component={PlayerList} />
           </Switch>
-      {/* <Navbar></Navbar> */}
-    </Provider>
+      </Provider>
     </Router>
   );
 }

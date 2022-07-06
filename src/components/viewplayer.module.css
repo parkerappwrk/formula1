@@ -1,0 +1,9 @@
+.playerBtn{
+    cursor: pointer;
+    display: inline-block;
+    background: #0066C0;
+    color: #FFF;
+    border-radius: 5px;
+    font-size: 15px;
+    padding: 8px 20px;
+}
