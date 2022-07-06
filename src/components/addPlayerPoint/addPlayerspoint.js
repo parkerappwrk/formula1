@@ -1,17 +1,23 @@
 import React from "react";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actionCreators } from "../../state/index";
 import addPlayer from "./addPlayer.module.css";
 
 
 function AddPlayerspoint(props){
     const [value, setValue] = useState("");
+    const dispatch = useDispatch();
+    const action = bindActionCreators(actionCreators, dispatch);
+
+
 
     const handleSubmit = e => {
         e.preventDefault();
-        console.log(e);
         let id = e.target.id;
         if (!value) return;
-        props.updatePlayerPoint(value,id);
+        action.updatePoints(value,id);
     };
 
     return(

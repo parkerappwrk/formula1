@@ -1,9 +1,12 @@
 import React from "react";
-import { useState } from "react";
-import { propTypes } from "react-bootstrap/esm/Image";
+import { useState, useEffect } from "react";
+import { useSelector } from 'react-redux';
 import AddPlayerspoint from "../addPlayerPoint/addPlayerspoint";
 
-function PlayerUpdateScore(prop){
+function PlayerUpdateScore(){
+    const plyrpoints = useSelector((state) => state.playerdata);
+    console.log('PlayerUpdateScore');
+    console.log(plyrpoints);
     const [playerList, setplayer] = useState([
         {
             name: "Charles Leclerc",
@@ -28,7 +31,6 @@ function PlayerUpdateScore(prop){
     ]);
 
     const [isPlayerAdd, setPlayerAdd] = useState(false);
-    const [playerPoint, setPlayerPoint] = useState();
     const handleAddPoints=()=>{
         setPlayerAdd(true);
     }
@@ -37,11 +39,18 @@ function PlayerUpdateScore(prop){
         setPlayerAdd(false);
     }
     
-    let updatePlayerPoint = (index,value)=>{
+    let updatePlayerPoint = (value,index)=>{
         const newplayerList = [...playerList];
         newplayerList[index].points = value;
         setplayer(newplayerList);
     }
+
+    useEffect(() => {
+        console.log(plyrpoints);
+        if(plyrpoints.point && plyrpoints.user){
+            updatePlayerPoint(plyrpoints.point,plyrpoints.user);
+        }
+    },[plyrpoints]);
 
     return(
         <div className="col-md-12 mt-4">
@@ -58,7 +67,7 @@ function PlayerUpdateScore(prop){
                             <h6 className="player-points col-md-6 text-end"><b>Points</b></h6>
                         </div>
                         {playerList.map((players, index) => (
-                                <div className="player-row d-inline-flex align-items-center col-md-12 p-0 mb-4" id={players.id} index={index}>
+                                <div className="player-row d-inline-flex align-items-center col-md-12 p-0 mb-4" id={players.id} key={index}>
                                     <label className="player-name col-md-6">{players.name}</label>
                                     <label className="player-points col-md-6 text-end">{players.points}</label>
                                 </div>

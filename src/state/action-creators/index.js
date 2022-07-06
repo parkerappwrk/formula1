@@ -1,8 +1,9 @@
-export const depositMoney = (amount)  => {
+export const updatePoints = (points,playerid)  => {
     return (dispatch) => {
         dispatch({
-            type: 'deposit',
-            payload: amount
+            type: 'pointsup',
+            point: points,
+            user: playerid
         })
     }
 }

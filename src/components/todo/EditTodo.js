@@ -5,7 +5,6 @@ import { Button, Form } from 'react-bootstrap';
 function EditTodo(props) {
     const [value, setValue] = useState("");
     // let getAllRacedy = localStorage.getItem('AllRaceDay');
-    console.log(props.idObj); 
 
     useEffect(() => {
         let index = props.id;

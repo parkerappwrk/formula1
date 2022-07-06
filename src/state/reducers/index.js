@@ -1,8 +1,9 @@
 import { combineReducers } from 'redux';
 import amountReducers from "./amountReducers";
 
+console.log(amountReducers);
 const reducers = combineReducers({
-    amount: amountReducers
+    playerdata: amountReducers
 });
 
 export default reducers;
